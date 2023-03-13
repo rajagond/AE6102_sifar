@@ -1,0 +1,215 @@
+\documentclass[11pt,a4paper]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%% Credit %%%%%%%%%%%%%%%%%%%%%%%%
+
+% template ini dibuat oleh martin.manullang@if.itera.ac.id untuk dipergunakan oleh seluruh sivitas akademik itera.
+
+%%%%%%%%%%%%%%%%%%%%%%%%% PACKAGE starts HERE %%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{microtype}
+%\captionsetup[table]{name=Tabel}
+%\captionsetup[figure]{name=Gambar}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tabulary}
+\usepackage{minted}
+\usepackage{amsmath}
+\usepackage{fancyhdr}
+
+ \usepackage{amssymb}
+ \usepackage{amsthm}
+\usepackage{placeins}
+\usepackage{enumerate}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage[all]{xy}
+\usepackage{tikz}
+\usepackage{verbatim}
+\usepackage[left=1cm,right=1cm,top=1.7cm,bottom=1.2cm]{geometry}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{psfrag}
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{beramono}
+% Enable inserting code into the document
+\usepackage{listings}
+\usepackage{xcolor} 
+% custom color & style for listing
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{LightGray}{gray}{0.9}
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{green},
+	keywordstyle=\color{codegreen},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+\lstset{style=mystyle}
+\renewcommand{\lstlistingname}{Kode}
+%%%%%%%%%%%%%%%%%%%%%%%%% PACKAGE ends HERE %%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%% Data Diri %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\student}{\textbf{Sifar}}
+\newcommand{\course}{\textbf{AE6102}}
+\newcommand{\assignment}{\textbf{(..)}}
+
+%%%%%%%%%%%%%%%%%%% using theorem style %%%%%%%%%%%%%%%%%%%%
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{exa}[thm]{Example}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{coro}[thm]{Corollary}
+\newtheorem{quest}{Question}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{lipsum}%% a garbage package you don't need except to create examples.
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Sifar}
+\rhead{ \thepage}
+\cfoot{\textbf{AE6102}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+%%%%%%%%%%%%%%  Shortcut for usual set of numbers  %%%%%%%%%%%
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\setlength\headheight{14pt}
+
+\lstnewenvironment{TeXlstlisting}[1]{
+\lstset{
+    frameround=fttt,
+    %caption= #2,
+    language=#1,
+    %label=#3,
+    numbers=left,
+    breaklines=true,
+    delim        = [s][\color{red!50!black}]{$\}\{$},
+    moredelim=[s][\color{red!50!black}]{\\[}{\\]},
+    moredelim=[s][\color{red!50!black}]{$$\}\{$$},
+    keywordstyle=\color{blue}\bfseries, 
+    %basicstyle=\ttfamily\color{red},
+    numberstyle=\tiny\color{gray},
+    commentstyle=\color{green!30!black},
+    stringstyle = \color{violet}
+    }
+    \refstepcounter{Listing}
+    {
+    \vspace{1.5em}
+    }
+}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%555
+\begin{document}
+\thispagestyle{empty}
+\begin{center}
+	\texttt{\Large AE6102 - Parallel Scientific Computing and Visualization}\\
+        \vspace*{0.2cm}
+        \texttt{\Large Project Proposal(final)}\\
+        \vspace*{0.2cm}
+	\texttt{\large Spring 2023}
+\end{center}
+\noindent
+\rule{19cm}{0.2cm}\\[0.3cm]
+Team Name: \student \hfill Date: \today\\[0.1cm]
+\rule{19cm}{0.05cm}
+\vspace{0.1cm}
+
+\vspace*{-0.5cm}
+
+\section*{{\LARGE Requirements}}
+\begin{itemize}
+    \item \texttt{Title}: 3D Visualization and Analysis of Seismic Volumes
+    \item \texttt{Participants}
+    
+    \begin{center}
+         \begin{tabular}{||c | c | c||} 
+         \hline
+         \textbf{Name} & \textbf{Roll Number} & \textbf{Contact} \\ [0.5ex] 
+         \hline \hline 
+         Adarsh Raj & 190050004 & 190050004@iitb.ac.in \\ 
+         \hline 
+         Koustav Sen & 190050062 & 190050062@iitb.ac.in \\
+         \hline 
+         Raja Gond & 190050096 & 190050096@iitb.ac.in \\
+         \hline
+        \end{tabular}
+    \end{center}
+    \item \texttt{Abstract}:\\
+    
+    The project aims to provide a comprehensive and interactive visual representation of subsurface geology by creating three-dimensional images of seismic volumes in \verb!MayaVI! library. The project will facilitate a better understanding of subsurface geology by allowing users to interact with the data in a more intuitive and efficient manner utilizing \verb!TraitsUI! library. Visualization of seismic volumes  is a very crucial component of interpretation workflows, be it to pick salt domes, interpret horizons, identify fault planes, or classify rock facies. 
+    
+    \item \texttt{Outline}:\\
+    
+    The project will involve the following steps:
+
+    \begin{itemize}
+        \item Collecting seismic data and processing it to generate seismic volumes.
+        \item Converting the seismic volumes into 3D models (\verb!numpy! arrays) using a specialized python module \verb!segyio!.
+        \item Developing an interactive user interface that allows the user to visualize and manipulate the 3D models, using \verb!TraitsUI!.
+        \item Adding functionalities for analysis using \verb!matplotlib! and \verb!mayaVI! to be able to identify fault planes, classification of rock structures, etc.
+        \item Adding features such as colouring, slicing, and annotation to enhance the interpretability of the data.
+        \item Experiments with popular datasets and demonstration of results of our application corresponding to multiple use cases.
+    \end{itemize}
+
+    \item \texttt{Deliverables}:\\
+    
+    The final project deliverables will include:
+    \begin{itemize}
+        \item A comprehensive report detailing the methodology and outcomes of the project.
+        \item A functional 3D visualization tool allows users to interact with the seismic volumes and view them from different angles and scales, with multiple functionalities for analysis on that seismic volume.
+        \item An annotated sample of the 3D model to showcase the features and capabilities of the tool.
+    \end{itemize}
+    \newpage
+    
+    \item \texttt{Timeline}:
+
+    \begin{center}
+        \begin{tabular}{ || p{0.24\textwidth} | p{0.6\textwidth} || }
+        \hline
+        \textbf{Date-Date} & \textbf{Planned Progress} \\
+        \hline
+        12/02/2023 - 26/02/2023 & Project proposal submission \\ [0.4ex]
+        & Finalize project based on feedback received during midsem week \\ [0.5ex]
+        \hline
+        27/02/2023 - 12/03/2023 & Datasets Research, Data Collection, Research on Surface Geology for Analysis Mechanisms, Data Parsing and Transformation into \verb!numpy! 3D models\\ [0.4ex]
+        \hline
+        13/03/2023 - 26/03/2023 & Models and UI Design, Logics Coding Phase using \verb!MayaVi! and \verb!TraitsUI! \\ [0.4ex]
+        \hline
+        27/03/2023 - 09/04/2023 & Coding Phase continued, Experimentation on Different factors and tweaks for optimization and better results  \\ [0.4ex]
+        \hline
+        10/04/2023 - 23/04/2023 & Final report, demo video and optimized code as an open-source GitHub repository. \\ [0.5ex]
+        \hline
+        \end{tabular}
+    \end{center}
+    \item \texttt{Git repository}: \url{https://github.com/rajagond/AE6102_sifar}
+\end{itemize}
+\end{document}
+
