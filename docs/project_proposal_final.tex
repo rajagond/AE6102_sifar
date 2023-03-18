@@ -48,6 +48,7 @@
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 \definecolor{LightGray}{gray}{0.9}
+\definecolor{royalblue}{rgb}{0.25, 0.41, 0.88}
 \lstdefinestyle{mystyle}{
 	backgroundcolor=\color{backcolour},   
 	commentstyle=\color{green},
@@ -72,7 +73,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Data Diri %%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\student}{\textbf{Sifar}}
+\newcommand{\student}{\textbf{\textit{Sifar}}}
 \newcommand{\course}{\textbf{AE6102}}
 \newcommand{\assignment}{\textbf{(..)}}
 
@@ -130,25 +131,39 @@
 \begin{document}
 \thispagestyle{empty}
 \begin{center}
-	\texttt{\Large AE6102 - Parallel Scientific Computing and Visualization}\\
+	\textcolor{codepurple}{\bf\Large AE6102 - Parallel Scientific Computing and Visualization}\\
         \vspace*{0.2cm}
-        \texttt{\Large Project Proposal(final)}\\
+        \textcolor{codegray}{\Large Project Proposal(Final)}\\
         \vspace*{0.2cm}
-	\texttt{\large Spring 2023}
+	  \textcolor{codegray}{\large Spring 2023}
 \end{center}
 \noindent
 \rule{19cm}{0.2cm}\\[0.3cm]
-Team Name: \student \hfill Date: \today\\[0.1cm]
+Team Name: \student \hfill Due Date: \textit{March 20, 2023}\\[0.1cm]
 \rule{19cm}{0.05cm}
 \vspace{0.1cm}
 
 \vspace*{-0.5cm}
 
+\subsubsection*{\textcolor{red}{Project Project(Draft) Feedback and updates}}
+\textcolor{blue}{\textit{Seems good. The Github link gives a 404 error.}}
+\begin{itemize}
+    \item \href{https://github.com/rajagond/AE6102_sifar}{The Github repository} was private earlier and we added \textit{Navneet(TA)} as collaborator also.     
+    \item We have also made our \href{https://github.com/rajagond/AE6102_sifar}{repository} public.
+    \item Repository \href{https://github.com/rajagond/AE6102_sifar/blob/main/README.md}{README.md} has been updated with the title, abstract and outline of the project.
+    \item No major changes in the project proposal.
+\end{itemize}
+
 \section*{{\LARGE Requirements}}
 \begin{itemize}
-    \item \texttt{Title}: 3D Visualization and Analysis of Seismic Volumes
+    \item \texttt{Title}: \textcolor{codegreen}{\bf 3D Visualization and Analysis of Seismic Volumes}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\linewidth]{image/image.png}
+        \caption{\textit{3-D seismic volumes}}
+        \label{fig:pt1}
+    \end{figure}
     \item \texttt{Participants}
-    
     \begin{center}
          \begin{tabular}{||c | c | c||} 
          \hline
@@ -162,14 +177,13 @@ Team Name: \student \hfill Date: \today\\[0.1cm]
          \hline
         \end{tabular}
     \end{center}
-    \item \texttt{Abstract}:\\
+    \item \texttt{Abstract}:
     
     The project aims to provide a comprehensive and interactive visual representation of subsurface geology by creating three-dimensional images of seismic volumes in \verb!MayaVI! library. The project will facilitate a better understanding of subsurface geology by allowing users to interact with the data in a more intuitive and efficient manner utilizing \verb!TraitsUI! library. Visualization of seismic volumes  is a very crucial component of interpretation workflows, be it to pick salt domes, interpret horizons, identify fault planes, or classify rock facies. 
     
-    \item \texttt{Outline}:\\
+    \item \texttt{Outline}:
     
     The project will involve the following steps:
-
     \begin{itemize}
         \item Collecting seismic data and processing it to generate seismic volumes.
         \item Converting the seismic volumes into 3D models (\verb!numpy! arrays) using a specialized python module \verb!segyio!.
@@ -179,33 +193,33 @@ Team Name: \student \hfill Date: \today\\[0.1cm]
         \item Experiments with popular datasets and demonstration of results of our application corresponding to multiple use cases.
     \end{itemize}
 
-    \item \texttt{Deliverables}:\\
-    
+    \item \texttt{Deliverables}:
     The final project deliverables will include:
     \begin{itemize}
         \item A comprehensive report detailing the methodology and outcomes of the project.
         \item A functional 3D visualization tool allows users to interact with the seismic volumes and view them from different angles and scales, with multiple functionalities for analysis on that seismic volume.
         \item An annotated sample of the 3D model to showcase the features and capabilities of the tool.
     \end{itemize}
-    \newpage
-    
     \item \texttt{Timeline}:
 
     \begin{center}
-        \begin{tabular}{ || p{0.24\textwidth} | p{0.6\textwidth} || }
+        \begin{tabular}{ || p{0.13\textwidth} | p{0.6\textwidth} | p{0.09\textwidth}|| }
         \hline
-        \textbf{Date-Date} & \textbf{Planned Progress} \\
+        \textbf{From - To (Date-Date)} & \textbf{Planned Progress} & \textcolor{red}{Status}\\
         \hline
-        12/02/2023 - 26/02/2023 & Project proposal submission \\ [0.4ex]
-        & Finalize project based on feedback received during midsem week \\ [0.5ex]
+        12/02/2023 -18/02/2023 & Project proposal(Draft) submission \newline (\textcolor{blue}{Submitted on 18/02/2023}) & Done \\ [0.4ex]
         \hline
-        27/02/2023 - 12/03/2023 & Datasets Research, Data Collection, Research on Surface Geology for Analysis Mechanisms, Data Parsing and Transformation into \verb!numpy! 3D models\\ [0.4ex]
+        19/02/2023 -12/03/2023 & Finalize project based on feedback received \newline (\textcolor{blue}{Submission due on 20/03/2023})  & Done \\ [0.5ex]
         \hline
-        13/03/2023 - 26/03/2023 & Models and UI Design, Logics Coding Phase using \verb!MayaVi! and \verb!TraitsUI! \\ [0.4ex]
+        13/03/2023 -26/03/2023 & Datasets Research, Data Collection, Research on Surface Geology for Analysis Mechanisms, Data Parsing and Transformation into \verb!numpy! 3D models (\textcolor{blue}{Update-1 due on 20/03/2023}) & In progress\\ [0.4ex]
         \hline
-        27/03/2023 - 09/04/2023 & Coding Phase continued, Experimentation on Different factors and tweaks for optimization and better results  \\ [0.4ex]
+        27/03/2023 -09/04/2023 & Models and UI Design, Logics Coding Phase using \verb!MayaVi! and \verb!TraitsUI! & In progress \\ [0.4ex]
         \hline
-        10/04/2023 - 23/04/2023 & Final report, demo video and optimized code as an open-source GitHub repository. \\ [0.5ex]
+        09/03/2023 -14/04/2023 & Coding Phase continued, Experimentation on Different factors and tweaks for optimization and better results & Not started  \\ [0.4ex]
+        \hline
+        15/04/2023 -25/04/2023 & Final report, demo video and optimized code as an open-source GitHub repository & Not started \\ [0.5ex]
+        \hline
+        26/04/2023 -30/04/2023 & Final presentation with TAs and instructor & Date not finalized \\ [0.5ex]
         \hline
         \end{tabular}
     \end{center}

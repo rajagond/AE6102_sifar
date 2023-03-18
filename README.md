@@ -37,6 +37,7 @@ The project will involve the following steps:
 | 1    | [Project - Grading & Guidelines (2022-2)](docs/Project_Grading_Guidelines_(2022-2).pdf) |                      |
 | 2    | [Project Proposal (draft)](docs/project_proposal_draft.pdf)  | 18/02/2023 23:59 IST |
 | 3    | [Project Proposal (final)](docs/project_proposal_final.pdf)  | 20/03/2023 09:00 IST |
+ 4     | [Project Update-01](docs/project_update1.pdf)                    | 20/03/2023 09:00 IST |
 
 ##### Datasets
 
