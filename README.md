@@ -37,3 +37,16 @@ The project will involve the following steps:
 | 1    | [Project - Grading & Guidelines (2022-2)](docs/Project_Grading_Guidelines_(2022-2).pdf) |                      |
 | 2    | [Project Proposal (draft)](docs/project_proposal_draft.pdf)  | 18/02/2023 23:59 IST |
 | 3    | [Project Proposal (final)](docs/project_proposal_final.pdf)  | 20/03/2023 09:00 IST |
+
+##### Datasets
+
+| S.No | Name                                                         | Description                                                  |
+| ---- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 1    | [3D seismic data NZPM](https://public.3.basecamp.com/p/JyT276MM7krjYrMoLqLQ6xST) | Seismic data is publicly available and provided by New Zealand Petroleum and Minerals (NZPM)                    |
+| 2    | [3D seismic data Netherlands F3 Block](https://github.com/olivesgatech/facies_classification_benchmark#dataset) |  Developed by the OLIVES lab at Georgia Tech                    |
+| 3    | [3D seismic data US](https://pubs.usgs.gov/of/2009/1151/data/seismics/segy/) | 3D seismic data provided by the USGS      |
+
+##### References
+- https://wiki.seg.org/wiki/Open_data
+- http://article.nadiapub.com/IJSIP/vol9_no5/39.pdf
+- https://github.com/equinor/segyio
