@@ -1,0 +1,182 @@
+\documentclass[11pt,a4paper]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%% Credit %%%%%%%%%%%%%%%%%%%%%%%%
+
+% template ini dibuat oleh martin.manullang@if.itera.ac.id untuk dipergunakan oleh seluruh sivitas akademik itera.
+
+%%%%%%%%%%%%%%%%%%%%%%%%% PACKAGE starts HERE %%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{microtype}
+%\captionsetup[table]{name=Tabel}
+%\captionsetup[figure]{name=Gambar}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tabulary}
+\usepackage{minted}
+\usepackage{amsmath}
+\usepackage{fancyhdr}
+
+ \usepackage{amssymb}
+ \usepackage{amsthm}
+\usepackage{placeins}
+\usepackage{enumerate}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage[all]{xy}
+\usepackage{tikz}
+\usepackage{verbatim}
+\usepackage[left=1cm,right=1cm,top=1.7cm,bottom=1.2cm]{geometry}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{psfrag}
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{beramono}
+% Enable inserting code into the document
+\usepackage{listings}
+\usepackage{xcolor} 
+% custom color & style for listing
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{LightGray}{gray}{0.9}
+\definecolor{royalblue}{rgb}{0.25, 0.41, 0.88}
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{green},
+	keywordstyle=\color{codegreen},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+\lstset{style=mystyle}
+\renewcommand{\lstlistingname}{Kode}
+%%%%%%%%%%%%%%%%%%%%%%%%% PACKAGE ends HERE %%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%% Data Diri %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\student}{\textbf{\textit{\href{https://github.com/rajagond/AE6102_sifar}{Sifar}}}}
+\newcommand{\course}{\textbf{AE6102}}
+\newcommand{\assignment}{\textbf{(..)}}
+
+%%%%%%%%%%%%%%%%%%% using theorem style %%%%%%%%%%%%%%%%%%%%
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{exa}[thm]{Example}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{coro}[thm]{Corollary}
+\newtheorem{quest}{Question}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{lipsum}%% a garbage package you don't need except to create examples.
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Sifar}
+\rhead{ \thepage}
+\cfoot{\textbf{AE6102}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+%%%%%%%%%%%%%%  Shortcut for usual set of numbers  %%%%%%%%%%%
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\setlength\headheight{14pt}
+
+\lstnewenvironment{TeXlstlisting}[1]{
+\lstset{
+    frameround=fttt,
+    %caption= #2,
+    language=#1,
+    %label=#3,
+    numbers=left,
+    breaklines=true,
+    delim        = [s][\color{red!50!black}]{$\}\{$},
+    moredelim=[s][\color{red!50!black}]{\\[}{\\]},
+    moredelim=[s][\color{red!50!black}]{$$\}\{$$},
+    keywordstyle=\color{blue}\bfseries, 
+    %basicstyle=\ttfamily\color{red},
+    numberstyle=\tiny\color{gray},
+    commentstyle=\color{green!30!black},
+    stringstyle = \color{violet}
+    }
+    \refstepcounter{Listing}
+    {
+    \vspace{1.5em}
+    }
+}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%555
+\begin{document}
+% \thispagestyle{empty}
+\noindent\fbox
+{
+\begin{minipage}{\dimexpr\textwidth-2\fboxsep-2\fboxrule\relax}
+\vspace{0.5cm}
+\begin{center}
+    
+
+	{\bf\Large AE6102 - Parallel Scientific Computing and Visualization(Spring 2023)}\\
+        \vspace*{0.2cm}
+\end{center}
+\noindent
+
+Team   : \student \textit{(190050004, 190050062, 190050096)} \hfill Due: \textit{March 20, 2023}\\[0.1cm]
+Project: \textit{3D Visualization and Analysis of Seismic Volumes} \hfill Project Update: \textit{01}
+ \vspace*{0.2cm}       
+\end{minipage}
+}
+% \begin{minipage}[t]{2in}
+% This is a mini-page. The text inside it is formatted as usual.
+
+% Paragraph breaks can also be used, but there is no indentation by default\footnote{and this is how a footnote appears}.
+% \end{minipage}
+
+\subsubsection*{\textcolor{red}{Updates}}
+\begin{itemize}
+    \item We have finalized the project and submitted the final project proposal on moodle.
+    \item As we move forward, we will ensure that the project's \href{https://github.com/rajagond/AE6102_sifar}{GitHub repository} is continuously updated to reflect our progress and any developments that occur in the coming days.
+    \item We have spent a significant amount of time researching publicly available \textit{3D seismic datasets} as they are an integral part of our project. After thorough consideration, we have finalized the below dataset that we will be utilizing in our work.
+    
+     \begin{tabular}{||c | c | p{9cm}||} 
+     \hline
+     \textbf{S.No} & \textbf{Name} & \textbf{Description} \\ [0.5ex] 
+     \hline \hline 
+     1 & \href{https://public.3.basecamp.com/p/JyT276MM7krjYrMoLqLQ6xST}{3D seismic data NZPM} & Seismic data is publicly available and provided by New Zealand Petroleum and Minerals (NZPM) \\ 
+     \hline 
+     2 & \href{https://github.com/olivesgatech/facies_classification_benchmark#dataset}{3D seismic data Netherlands F3 Block} & Developed by the OLIVES lab at Georgia Tech \\
+     \hline 
+     3 & \href{https://pubs.usgs.gov/of/2009/1151/data/seismics/segy/}{3D seismic data US} & 3D seismic data provided by the USGS \\
+     \hline
+    \end{tabular}
+
+    \item We have added the data transformation part code using \verb!numpy! and \verb!segyio! modules, taking into account the US dataset, i.e \verb!3D seismic data US! for now. Later, we are planning to use \verb!NZPM! dataset for implementation. The code corresponding to this is in \verb!data-process! folder in our repository.
+
+    \item We have also tested simple \verb!mayavi! installation and basic visualization using it. The code corresponding to it is in the \verb!code\! folder of repository.
+        
+    \item We have acknowledged that the Mayavi is not yet covered in the course. However, we are looking forward to learning and utilizing Mayavi as it will be covered in the upcoming days, which will enhance our project's visualization capabilities.
+\end{itemize}
+
+\end{document}
+
