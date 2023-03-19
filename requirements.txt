@@ -1,0 +1,4 @@
+mayavi
+numpy
+segyio
+PyQt5

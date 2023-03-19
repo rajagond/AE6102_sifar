@@ -47,6 +47,10 @@ The project will involve the following steps:
 | 2    | [3D seismic data Netherlands F3 Block](https://github.com/olivesgatech/facies_classification_benchmark#dataset) |  Developed by the OLIVES lab at Georgia Tech                    |
 | 3    | [3D seismic data US](https://pubs.usgs.gov/of/2009/1151/data/seismics/segy/) | 3D seismic data provided by the USGS      |
 
+##### Setup
+- Install Required Packages
+    - `pip install -r requirements.txt`
+  
 ##### References
 - https://wiki.seg.org/wiki/Open_data
 - http://article.nadiapub.com/IJSIP/vol9_no5/39.pdf
