@@ -5,10 +5,6 @@ pip3 install mayavi
 pip3 install PyQt5
 ===================
 """
-# import mlab from mayavi
-from mayavi import mlab 
-# import numpy -- data processing and manipulation
-import numpy as np
 import subprocess
 import sys
 
