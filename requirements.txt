@@ -2,3 +2,7 @@ mayavi
 numpy
 segyio
 PyQt5
+pyside2
+pandas
+pyface[pyside2]
+traitsui[pyside2]

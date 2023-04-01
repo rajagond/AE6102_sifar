@@ -12,9 +12,9 @@ Sifar
 
 |    Name     | Roll Number | Contact              |
 | :---------: | ----------- | -------------------- |
-| Adarsh Raj  | 190050004   | 190050004@iitb.ac.in |
+| [Adarsh Raj](https://github.com/adarsh0raj)  | 190050004   | 190050004@iitb.ac.in |
 | Koustav Sen | 190050062   | 190050062@iitb.ac.in |
-|  Raja Gond  | 190050096   | 190050096@iitb.ac.in |
+|  [Raja Gond](https://github.com/rajagond)  | 190050096   | 190050096@iitb.ac.in |
 
 ##### Abstract
 The project aims to provide a comprehensive and interactive visual representation of subsurface geology by creating three-dimensional images of seismic volumes in **MayaVI** library. The project will facilitate a better understanding of subsurface geology by allowing users to interact with the data in a more intuitive and efficient manner utilizing **TraitsUI** library. Visualization of seismic volumes is a very crucial component of interpretation workflows, be it to pick salt domes, interpret horizons, identify fault planes, or classify rock facies.
@@ -37,7 +37,8 @@ The project will involve the following steps:
 | 1    | [Project - Grading & Guidelines (2022-2)](docs/Project_Grading_Guidelines_(2022-2).pdf) |                      |
 | 2    | [Project Proposal (draft)](docs/project_proposal_draft.pdf)  | 18/02/2023 23:59 IST |
 | 3    | [Project Proposal (final)](docs/project_proposal_final.pdf)  | 20/03/2023 09:00 IST |
- 4     | [Project Update-01](docs/project_update1.pdf)                    | 20/03/2023 09:00 IST |
+| 4    | [Project Update-01](docs/project_update1.pdf)                    | 20/03/2023 09:00 IST |
+| 5    | [Project Update-02](docs/project_update2.pdf)                    | 03/04/2023 09:00 IST |
 
 ##### Datasets
 
@@ -48,6 +49,12 @@ The project will involve the following steps:
 | 3    | [3D seismic data US](https://pubs.usgs.gov/of/2009/1151/data/seismics/segy/) | 3D seismic data provided by the USGS      |
 
 ##### Setup
+- Clone the repository
+    - `git clone https://github.com/rajagond/AE6102_sifar.git`
+- On **Ubuntu 22.04** with **python 3.10**, `libxcb-xinerama0` need to be installed with `apt`
+    - `sudo apt install python3.10`
+    - `sudo apt install python3-pip`
+    - `sudo apt install libxcb-xinerama0`
 - Install Required Packages
     - `pip install -r requirements.txt`
   
