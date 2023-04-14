@@ -9,29 +9,33 @@ from traits.api import HasTraits, Button, File, Instance, on_trait_change
 from traitsui.api import View, Item
 from mayavi.core.ui.api import MlabSceneModel, SceneEditor, MayaviScene
 from mayavi.tools.mlab_scene_model import MlabSceneModel
-from mayavi import mlab
 
 class SEGYAnalysis(HasTraits):
 
     open_file = Button(label='Open file...')
     file_path = File()
+    clearFile = Button(label='Clear file')
     scene = Instance(MlabSceneModel, ())
     traits_view = View(
                         Item('scene', editor=SceneEditor(scene_class=MayaviScene),
                             height=600, width=800, show_label=False),
                         Item('open_file'),
                         Item('file_path', label='Selected file:', style='readonly'),
-                        title='Open file example',
+                        Item('clearFile'),
+                        title='File Input Mayavi',
                         resizable=True,
-                        buttons =  [
-                            'OK',
-                            'Cancel',
-                        ],
+                        buttons =  [ 'Cancel'],
                     )
 
     def __init__(self):
         HasTraits.__init__(self)
         self.seismic_data = None
+
+    @on_trait_change('scene.activated')
+    def update_plot(self):
+        self.scene.mlab.clf()
+        self.scene.mlab.test_contour3d()
+        print('update_plot')
 
     def _open_file_fired(self):
         file_path = fd.askopenfilename()
@@ -46,8 +50,16 @@ class SEGYAnalysis(HasTraits):
 
             except Exception as e:
                 print(e)
+                self.scene.mlab.clf()
+                self.scene.mlab.test_contour3d()
                 self.seismic_data = None    
-                self.file_path = 'Error: ' + str(e)
+                file_path = File()
+
+    def _clearFile_fired(self):
+        self.seismic_data = None
+        self.file_path = ''
+        self.scene.mlab.clf()
+        self.scene.mlab.test_contour3d()
 
 if __name__ == '__main__':
 
