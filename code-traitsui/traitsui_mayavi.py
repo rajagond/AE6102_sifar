@@ -19,7 +19,7 @@ class TraitsUI(HasTraits):
     # update_plot_button = Button(label='Update Plot')
 
     # Action to perform when the button is pressed
-    upp = Action(name="Update Plot", action="update_plot_button_clicked")
+    update_plot_action = Action(name="Update Plot", action="update_plot_button_clicked")
 
     # traits_view = View(
     #             Item('scene', editor=SceneEditor(scene_class=MayaviScene),
@@ -28,7 +28,7 @@ class TraitsUI(HasTraits):
     #             # HGroup(
     #             #     UItem('update_plot_button', editor=ButtonEditor(label='Update Plot')),
     #             # ),
-    #             buttons = [OKButton, CancelButton, upp],
+    #             buttons = [OKButton, CancelButton, update_plot_action],
     #             resizable=True,
     #             scrollable=True)
     
@@ -56,7 +56,7 @@ class TraitsUI(HasTraits):
                           width=500),
                 ),
             ),
-            buttons = [OKButton, CancelButton, self.upp],
+            buttons = [OKButton, CancelButton, self.update_plot_action],
             resizable=True,
             scrollable=True
         )
@@ -72,9 +72,9 @@ class TraitsUI(HasTraits):
             self.scene.mlab.test_points3d()
             self.curent_plot = 3
         else :
-            self.scene.mlab.volume_slice(self.seismic_data, slice_index=0, plane_orientation='x_axes', figure=self.scene.mayavi_scene)
-            self.scene.mlab.volume_slice(self.seismic_data, slice_index=0,  plane_orientation='y_axes', figure=self.scene.mayavi_scene) 
-            self.scene.mlab.volume_slice(self.seismic_data, slice_index=0, plane_orientation='z_axes', figure=self.scene.mayavi_scene) 
+            self.scene.mlab.volume_slice(self.seismic_data, slice_index=0, plane_orientation='x_axes')
+            self.scene.mlab.volume_slice(self.seismic_data, slice_index=0,  plane_orientation='y_axes') 
+            self.scene.mlab.volume_slice(self.seismic_data, slice_index=0, plane_orientation='z_axes') 
             self.curent_plot = 1
 
         print('update_plot')
