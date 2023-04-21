@@ -6,3 +6,5 @@ pyside2
 pandas
 pyface[pyside2]
 traitsui[pyside2]
+argparse 
+automan
