@@ -12,9 +12,9 @@ Sifar
 
 |    Name     | Roll Number | Contact              |
 | :---------: | ----------- | -------------------- |
-| [Adarsh Raj](https://github.com/adarsh0raj)  | 190050004   | 190050004@iitb.ac.in |
-| Koustav Sen | 190050062   | 190050062@iitb.ac.in |
-|  [Raja Gond](https://github.com/rajagond)  | 190050096   | 190050096@iitb.ac.in |
+| [Adarsh Raj](https://github.com/adarsh0raj)   | 190050004   | 190050004@iitb.ac.in |
+| [Koustav Sen](https://github.com/koustav1908) | 190050062   | 190050062@iitb.ac.in |
+| [Raja Gond](https://github.com/rajagond)      | 190050096   | 190050096@iitb.ac.in |
 
 ##### Abstract
 The project aims to provide a comprehensive and interactive visual representation of subsurface geology by creating three-dimensional images of seismic volumes in **MayaVI** library. The project will facilitate a better understanding of subsurface geology by allowing users to interact with the data in a more intuitive and efficient manner utilizing **TraitsUI** library. Visualization of seismic volumes is a very crucial component of interpretation workflows, be it to pick salt domes, interpret horizons, identify fault planes, or classify rock facies.
@@ -56,8 +56,22 @@ The project will involve the following steps:
     - `sudo apt install python3.10`
     - `sudo apt install python3-pip`
     - `sudo apt install libxcb-xinerama0`
+    - `sudo apt-get install texlive-full` (for sphinx documentation in pdf format)
 - Install Required Packages
-    - `pip install -r requirements.txt`
+    - `pip install -r docs/requirements.txt`
+
+- Virtual Environment
+    - `python3.10 -m venv venv`
+    - `source venv/bin/activate`
+    - `pip3 install -r requirements.txt`
+
+- Documentation Generation (Sphinx)
+    - `sphinx-build --version`
+    - `sphinx-quickstart docs`
+    - `sphinx-build -b html docs/source/ docs/build/html`
+    - `google-chrome docs/build/html/index.html`
+    - `cd docs`
+    - `make clean html` or `make clean latexpdf`
   
 ##### References
 - https://wiki.seg.org/wiki/Open_data
