@@ -5,43 +5,8 @@ from traits.api import HasTraits, Button, File, Instance, on_trait_change, Bool
 from traitsui.api import View, Item, HGroup
 from mayavi.core.ui.api import MlabSceneModel, SceneEditor, MayaviScene
 from mayavi.tools.mlab_scene_model import MlabSceneModel
-from matplotlib import pyplot as plt
-
-class Analysis(HasTraits):
-
-    inline_button = Button('Inline Plot')
-    crossline_button = Button('Crossline Plot')
-    depth_button = Button('Depth Plot')
-
-    analysis_view = View(
-        HGroup(
-            Item('inline_button', show_label=False),
-            Item('crossline_button', show_label=False),
-            Item('depth_button', show_label=False),
-        ),
-        title='Analysis',
-        resizable=True,
-        buttons=['Cancel'],
-    )
-
-    def __init__(self, data):
-        HasTraits.__init__(self)
-        self.seismic_data = data
-
-    def _inline_button_fired(self):
-        inline_slice = self.seismic_data[:, :, 0]
-        plt.imshow(inline_slice)
-        plt.show()
-
-    def _crossline_button_fired(self):
-        crossline_slice = self.seismic_data[:, 0, :]
-        plt.imshow(crossline_slice)
-        plt.show()
-
-    def _depth_button_fired(self):
-        depth_slice = self.seismic_data[0, :, :]
-        plt.imshow(depth_slice)
-        plt.show()
+from analysis import *
+from numpy_analysis import *
 
 class SEGYAnalysis(HasTraits):
 
@@ -53,6 +18,7 @@ class SEGYAnalysis(HasTraits):
     zoom_out_button = Button('Zoom Out', show_label=False)
     show_group = Bool(False)
     analysis_button = Button(label='Analysis...')
+    numpy_analysis_button = Button(label='Numpy Analysis...')
 
     traits_view = View(
         Item('scene', editor=SceneEditor(scene_class=MayaviScene),
@@ -61,12 +27,13 @@ class SEGYAnalysis(HasTraits):
             'zoom_in_button', 
             'zoom_out_button',
             Item('analysis_button', show_label=False),
+            Item('numpy_analysis_button', show_label=False),
             visible_when='show_group',
         ),
         Item('open_file'),
         Item('file_path', label='Selected file:', style='readonly'),
         Item('clearFile'),
-        title='File Input Mayavi',
+        title='Seismic Data Visualization and Analysis',
         resizable=True,
         buttons=['Cancel'],
     )
@@ -120,6 +87,10 @@ class SEGYAnalysis(HasTraits):
     def _analysis_button_fired(self):
         analysis_traits = Analysis(self.seismic_data)
         analysis_traits.configure_traits()
+
+    def _numpy_analysis_button_fired(self):
+        numpy_analysis_traits = NumpyAnalysis(self.seismic_data)
+        numpy_analysis_traits.configure_traits()
 
 if __name__ == '__main__':
 
