@@ -5,3 +5,4 @@ __pycache__/
 data-process/.automan/
 data-process/*.json
 venv/
+animations/
