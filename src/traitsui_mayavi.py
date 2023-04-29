@@ -66,7 +66,7 @@ class TraitsUI(HasTraits):
     def update_plot(self):
         self.scene.mlab.clf()
         if self.curent_plot == 1:
-            self.scene.mlab.test_contour3d()
+            self.scene.mlab.contour3d(self.seismic_data)
             self.curent_plot = 2
         elif self.curent_plot == 2:
             self.scene.mlab.test_points3d()
