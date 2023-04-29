@@ -67,6 +67,7 @@ class SEGYAnalysis(HasTraits):
                 self.scene.mlab.volume_slice(self.seismic_data, slice_index=0, plane_orientation='x_axes')
                 self.scene.mlab.volume_slice(self.seismic_data, slice_index=0, plane_orientation='y_axes')
                 self.scene.mlab.volume_slice(self.seismic_data, slice_index=0, plane_orientation='z_axes')
+                # self.scene.mlab.contour3d(self.seismic_data, contours=3, opacity=0.4)
                 self.show_group = True
 
             except Exception as e:
