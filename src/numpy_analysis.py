@@ -12,7 +12,7 @@ class NumpyAnalysis(HasTraits):
     crossline_button = Button('Print Data')
     depth_button = Button('Print Data')
 
-    analysis_view = View(
+    numpy_analysis_view = View(
         HGroup(
             Item('coordinates', label='Comma Separated Indices:'),
             Item('coordinates_button', show_label=False),
@@ -33,7 +33,7 @@ class NumpyAnalysis(HasTraits):
             Item('depth_button', show_label=False),
             label='Depth (Z-Axis)'
         ),
-        title='Analysis',
+        title='Numpy Analysis',
         resizable=True,
         buttons=['Cancel'],
     )

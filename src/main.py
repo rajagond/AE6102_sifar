@@ -7,18 +7,25 @@ from mayavi.core.ui.api import MlabSceneModel, SceneEditor, MayaviScene
 from mayavi.tools.mlab_scene_model import MlabSceneModel
 from analysis import *
 from numpy_analysis import *
+from animation import *
 
 class SEGYAnalysis(HasTraits):
 
+    # File Buttons
     open_file = Button(label='Open file...')
     file_path = File()
     clearFile = Button(label='Clear file')
+
+    # Mlab Scene Model
     scene = Instance(MlabSceneModel, ())
+
+    # Sesismic Data Specific Buttons
     zoom_in_button = Button('Zoom In', show_label=False)
     zoom_out_button = Button('Zoom Out', show_label=False)
     show_group = Bool(False)
     analysis_button = Button(label='Analysis...')
     numpy_analysis_button = Button(label='Numpy Analysis...')
+    animation_button = Button(label='Animation...')
 
     traits_view = View(
         Item('scene', editor=SceneEditor(scene_class=MayaviScene),
@@ -28,6 +35,7 @@ class SEGYAnalysis(HasTraits):
             'zoom_out_button',
             Item('analysis_button', show_label=False),
             Item('numpy_analysis_button', show_label=False),
+            Item('animation_button', show_label=False),
             visible_when='show_group',
         ),
         Item('open_file'),
@@ -91,6 +99,10 @@ class SEGYAnalysis(HasTraits):
     def _numpy_analysis_button_fired(self):
         numpy_analysis_traits = NumpyAnalysis(self.seismic_data)
         numpy_analysis_traits.configure_traits()
+
+    def _animation_button_fired(self):
+        animation_traits = Animation(self.seismic_data)
+        animation_traits.configure_traits()
 
 if __name__ == '__main__':
 
