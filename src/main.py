@@ -2,13 +2,35 @@ import numpy as np
 from tkinter import filedialog as fd
 from tkinter import Tk
 from traits.api import HasTraits, Button, File, Instance, on_trait_change, Bool
-from traitsui.api import View, Item, HGroup, VGroup
+from traitsui.api import View, Item, HGroup, VGroup, HSplit
 from mayavi.core.ui.api import MlabSceneModel, SceneEditor, MayaviScene
 from mayavi.tools.mlab_scene_model import MlabSceneModel
 from analysis import *
 from numpy_analysis import *
 from animation import *
 from volume_slice_analysis import *
+
+class ProjectInformationDisplay(HasTraits):
+    name = '3D Visualization and Analysis of Seismic Volumes'
+    team_name = 'Sifar'
+    team_members = 'Adarsh, Koustav, Raja'
+    course_name = 'AE6102 (Spring 2022-2023)'
+
+    view = View(
+        HSplit(
+        VGroup(
+            Item('course_name', style='readonly', label='Course Name'),
+            Item('name', style='readonly', label='Project Name'),
+        ),
+        VGroup(
+            Item('team_name', style='readonly', label='Team Name'),
+            Item('team_members', style='readonly', label='Team Members'),
+        ),
+        ),
+        style = 'custom',
+        title='Project Information',
+        resizable=True,
+    ) 
 
 class SEGYAnalysis(HasTraits):
 
@@ -19,6 +41,9 @@ class SEGYAnalysis(HasTraits):
     label_file_path = File()
     show_button = Button(label='Show and Analyse')
     clearFile = Button(label='Clear file')
+
+    # Project Information
+    project = Instance(ProjectInformationDisplay, ())
 
     # Mlab Scene Model
     scene = Instance(MlabSceneModel, ())
@@ -34,6 +59,7 @@ class SEGYAnalysis(HasTraits):
     volume_slice_analysis_button = Button(label='Volume Slice Analysis')
 
     traits_view = View(
+        Item('project', style='custom', show_label=False),
         Item('scene', editor=SceneEditor(scene_class=MayaviScene),
              height=600, width=800, show_label=False),
         HGroup(
@@ -46,17 +72,15 @@ class SEGYAnalysis(HasTraits):
             visible_when='show_group',
         ),
         VGroup(
-            HGroup(
-                Item('open_data_file', show_label=True, style='simple', label='Data File'),
-                Item('data_file_path', label='Selected file:', style='readonly'),
+            HSplit(
+            Item('open_data_file', show_label=True, style='simple', label='Data File'),
+            Item('data_file_path', label='Selected file:', style='readonly'),
             ),
-            HGroup(
-                Item('open_label_file', show_label=True, style='simple', label='Label File'),
-                Item('label_file_path', label='Selected file:', style='readonly'),
+            HSplit(
+            Item('open_label_file', show_label=True, style='simple', label='Label File'),
+            Item('label_file_path', label='Selected file:', style='readonly'),
             ),
-            HGroup(
-                Item('show_button', show_label=False, style='simple', label='Show File'),
-            ),
+            Item('show_button', show_label=False, style='simple', label='Show File'),
             visible_when='show_file',
         ),
         Item('clearFile', show_label=False, style='custom', label='Clear File'),
