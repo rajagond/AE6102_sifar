@@ -58,7 +58,7 @@ The project will involve the following steps:
     - `sudo apt install libxcb-xinerama0`
     - `sudo apt-get install texlive-full` (for sphinx documentation in pdf format)
 - Install Required Packages
-    - `pip install -r docs/requirements.txt`
+    - `pip install -r requirements.txt`
 
 - Virtual Environment
     - `python3.10 -m venv venv`

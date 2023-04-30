@@ -29,6 +29,7 @@ specific scene interactor styles. Indeed, non-technical users can be
 confused with too rich interaction.
 """
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
+# Modified for Project by Team Sifar
 # Copyright (c) 2009, Enthought, Inc.
 # License: BSD Style.
 
@@ -36,7 +37,7 @@ import numpy as np
 
 from traits.api import HasTraits, Instance, Array, \
     on_trait_change
-from traitsui.api import View, Item, HGroup, Group
+from traitsui.api import View, Item, VGroup, Group, HGroup
 
 from tvtk.api import tvtk
 from tvtk.pyface.scene import Scene
@@ -44,20 +45,12 @@ from tvtk.pyface.scene import Scene
 from mayavi import mlab
 from mayavi.core.api import PipelineBase, Source
 from mayavi.core.ui.api import SceneEditor, MayaviScene, \
-    MlabSceneModel
-
-##########################################################
-# Create some data
-# x, y, z = np.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]
-# data = np.sin(3*x)/x + 0.05*z**2 + np.cos(3*y)
-
-##########################################################
-
-seismic_data = np.load('../data/test.npy')
+                                MlabSceneModel
 
 
+################################################################################
 # The object implementing the dialog
-class VolumeSlicer(HasTraits):
+class VolumeSliceAnalysis(HasTraits):
     # The data to plot
     data = Array()
 
@@ -77,27 +70,27 @@ class VolumeSlicer(HasTraits):
 
     _axis_names = dict(x=0, y=1, z=2)
 
-    # ---------------------------------------------------------------------------
 
+    #---------------------------------------------------------------------------
     def __init__(self, **traits):
-        super(VolumeSlicer, self).__init__(**traits)
+        super(VolumeSliceAnalysis, self).__init__(**traits)
         # Force the creation of the image_plane_widgets:
         self.ipw_3d_x
         self.ipw_3d_y
         self.ipw_3d_z
 
-    # ---------------------------------------------------------------------------
-    # Default values
-    # ---------------------------------------------------------------------------
 
+    #---------------------------------------------------------------------------
+    # Default values
+    #---------------------------------------------------------------------------
     def _data_src3d_default(self):
         return mlab.pipeline.scalar_field(self.data,
-                                          figure=self.scene3d.mayavi_scene)
+                            figure=self.scene3d.mayavi_scene)
 
     def make_ipw_3d(self, axis_name):
         ipw = mlab.pipeline.image_plane_widget(self.data_src3d,
-                                               figure=self.scene3d.mayavi_scene,
-                                               plane_orientation='%s_axes' % axis_name)
+                        figure=self.scene3d.mayavi_scene,
+                        plane_orientation='%s_axes' % axis_name)
         return ipw
 
     def _ipw_3d_x_default(self):
@@ -109,15 +102,15 @@ class VolumeSlicer(HasTraits):
     def _ipw_3d_z_default(self):
         return self.make_ipw_3d('z')
 
-    # ---------------------------------------------------------------------------
-    # Scene activation callbaks
-    # ---------------------------------------------------------------------------
 
+    #---------------------------------------------------------------------------
+    # Scene activation callbaks
+    #---------------------------------------------------------------------------
     @on_trait_change('scene3d.activated')
     def display_scene3d(self):
         outline = mlab.pipeline.outline(self.data_src3d,
-                                        figure=self.scene3d.mayavi_scene,
-                                        )
+                        figure=self.scene3d.mayavi_scene,
+                        )
         self.scene3d.mlab.view(40, 50)
         # Interaction properties can only be changed after the scene
         # has been created, and thus the interactor exists
@@ -127,7 +120,8 @@ class VolumeSlicer(HasTraits):
         self.scene3d.scene.background = (0, 0, 0)
         # Keep the view always pointing up
         self.scene3d.scene.interactor.interactor_style = \
-            tvtk.InteractorStyleTerrain()
+                                 tvtk.InteractorStyleTerrain()
+
 
     def make_side_view(self, axis_name):
         scene = getattr(self, 'scene_%s' % axis_name)
@@ -138,24 +132,23 @@ class VolumeSlicer(HasTraits):
         # We have to specify the figure so that the data gets
         # added on the figure we are interested in.
         outline = mlab.pipeline.outline(
-            self.data_src3d.mlab_source.dataset,
-            figure=scene.mayavi_scene,
-        )
+                            self.data_src3d.mlab_source.dataset,
+                            figure=scene.mayavi_scene,
+                            )
         ipw = mlab.pipeline.image_plane_widget(
-            outline,
-            plane_orientation='%s_axes' % axis_name)
+                            outline,
+                            plane_orientation='%s_axes' % axis_name)
         setattr(self, 'ipw_%s' % axis_name, ipw)
 
         # Synchronize positions between the corresponding image plane
         # widgets on different views.
         ipw.ipw.sync_trait('slice_position',
-                           getattr(self, 'ipw_3d_%s' % axis_name).ipw)
+                            getattr(self, 'ipw_3d_%s'% axis_name).ipw)
 
         # Make left-clicking create a crosshair
         ipw.ipw.left_button_action = 0
         # Add a callback on the image plane widget interaction to
         # move the others
-
         def move_view(obj, evt):
             position = obj.GetCurrentCursorPosition()
             for other_axis, axis_number in self._axis_names.items():
@@ -169,18 +162,19 @@ class VolumeSlicer(HasTraits):
 
         # Center the image plane widget
         ipw.ipw.slice_position = 0.5*self.data.shape[
-            self._axis_names[axis_name]]
+                    self._axis_names[axis_name]]
 
         # Position the view for the scene
-        views = dict(x=(0, 90),
+        views = dict(x=( 0, 90),
                      y=(90, 90),
-                     z=(0,  0),
+                     z=( 0,  0),
                      )
         scene.mlab.view(*views[axis_name])
         # 2D interaction: only pan and zoom
         scene.scene.interactor.interactor_style = \
-            tvtk.InteractorStyleImage()
+                                 tvtk.InteractorStyleImage()
         scene.scene.background = (0, 0, 0)
+
 
     @on_trait_change('scene_x.activated')
     def display_scene_x(self):
@@ -194,33 +188,35 @@ class VolumeSlicer(HasTraits):
     def display_scene_z(self):
         return self.make_side_view('z')
 
-    # ---------------------------------------------------------------------------
+
+    #---------------------------------------------------------------------------
     # The layout of the dialog created
-    # ---------------------------------------------------------------------------
-    view = View(HGroup(
-        Group(
-            Item('scene_y',
-                 editor=SceneEditor(scene_class=Scene),
-                 height=250, width=300),
-            Item('scene_z',
-                 editor=SceneEditor(scene_class=Scene),
-                 height=250, width=300),
-            show_labels=False,
-        ),
-        Group(
-            Item('scene_x',
-                 editor=SceneEditor(scene_class=Scene),
-                 height=250, width=300),
-            Item('scene3d',
-                 editor=SceneEditor(scene_class=MayaviScene),
-                 height=250, width=300),
-            show_labels=False,
-        ),
-    ),
-        resizable=True,
-        title='Volume Slicer',
-    )
-
-
-m = VolumeSlicer(data=seismic_data)
-m.configure_traits()
+    #---------------------------------------------------------------------------
+    view = View(VGroup(
+                HGroup(
+                    Item('scene_y',
+                        editor=SceneEditor(scene_class=Scene),
+                        label='Cross Line',
+                        height=250, width=300),
+                    Item('scene_z',
+                        editor=SceneEditor(scene_class=Scene),
+                        label='Height/Depth',
+                        height=250, width=300),
+                    Item('scene_x',
+                        editor=SceneEditor(scene_class=Scene),
+                        label='Inline',
+                        height=250, width=300),
+                    show_labels=False,
+                ),
+                Group(
+                    Item('scene3d',
+                        editor=SceneEditor(scene_class=MayaviScene),
+                        resizable=True,
+                        label='3D',
+                        height=500, width=900),
+                    show_labels=False,
+                ),
+            ),
+            resizable=True,
+            title='Volume Slice Analysis',
+            )

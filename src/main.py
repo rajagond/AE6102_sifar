@@ -2,18 +2,22 @@ import numpy as np
 from tkinter import filedialog as fd
 from tkinter import Tk
 from traits.api import HasTraits, Button, File, Instance, on_trait_change, Bool
-from traitsui.api import View, Item, HGroup
+from traitsui.api import View, Item, HGroup, VGroup
 from mayavi.core.ui.api import MlabSceneModel, SceneEditor, MayaviScene
 from mayavi.tools.mlab_scene_model import MlabSceneModel
 from analysis import *
 from numpy_analysis import *
 from animation import *
+from volume_slice_analysis import *
 
 class SEGYAnalysis(HasTraits):
 
     # File Buttons
-    open_file = Button(label='Open file...')
-    file_path = File()
+    open_data_file = Button(label='Open data file...')
+    data_file_path = File()
+    open_label_file = Button(label='Open label file...')
+    label_file_path = File()
+    show_button = Button(label='Show')
     clearFile = Button(label='Clear file')
 
     # Mlab Scene Model
@@ -23,24 +27,33 @@ class SEGYAnalysis(HasTraits):
     zoom_in_button = Button('Zoom In', show_label=False)
     zoom_out_button = Button('Zoom Out', show_label=False)
     show_group = Bool(False)
+    show_file = Bool(True)
     analysis_button = Button(label='Analysis...')
     numpy_analysis_button = Button(label='Numpy Analysis...')
     animation_button = Button(label='Animation...')
+    volume_slice_analysis_button = Button(label='Volume Slice Analysis')
 
     traits_view = View(
         Item('scene', editor=SceneEditor(scene_class=MayaviScene),
              height=600, width=800, show_label=False),
         HGroup(
-            'zoom_in_button', 
-            'zoom_out_button',
+            Item('zoom_in_button', show_label=False),
+            Item('zoom_out_button', show_label=False),
+            Item('volume_slice_analysis_button', show_label=False),
             Item('analysis_button', show_label=False),
             Item('numpy_analysis_button', show_label=False),
             Item('animation_button', show_label=False),
             visible_when='show_group',
         ),
-        Item('open_file'),
-        Item('file_path', label='Selected file:', style='readonly'),
-        Item('clearFile'),
+        VGroup(
+            Item('open_data_file', show_label=True, style='simple', label='Data File'),
+            Item('data_file_path', label='Selected file:', style='readonly'),
+            Item('open_label_file', show_label=True, style='simple', label='Label File'),
+            Item('label_file_path', label='Selected file:', style='readonly'),
+            Item('show_button', show_label=False, style='simple', label='Show File'),
+            visible_when='show_file',
+        ),
+        Item('clearFile', show_label=False, style='simple', label='Clear File'),
         title='Seismic Data Visualization and Analysis',
         resizable=True,
         buttons=['Cancel'],
@@ -49,34 +62,54 @@ class SEGYAnalysis(HasTraits):
     def __init__(self):
         HasTraits.__init__(self)
         self.seismic_data = None
+        self.seismic_label = None
+
 
     @on_trait_change('scene.activated')
     def update_plot(self):
         self.scene.mlab.clf()
         self.scene.mlab.test_contour3d()
-        print('update_plot')
 
-    def _open_file_fired(self):
-        file_path = fd.askopenfilename()
-        self.file_path = file_path
-        if file_path != '':
+    def _open_data_file_fired(self):
+        self.data_file_path = fd.askopenfilename()
+        if self.data_file_path != '':
             try:
-                self.seismic_data = np.load(file_path)
-                print(self.seismic_data.shape)
-                self.scene.mlab.clf()
-                self.scene.mlab.volume_slice(self.seismic_data, slice_index=0, plane_orientation='x_axes')
-                self.scene.mlab.volume_slice(self.seismic_data, slice_index=0, plane_orientation='y_axes')
-                self.scene.mlab.volume_slice(self.seismic_data, slice_index=0, plane_orientation='z_axes')
-                # self.scene.mlab.contour3d(self.seismic_data, contours=3, opacity=0.4)
-                self.show_group = True
+                self.seismic_data = np.load(self.data_file_path)
 
             except Exception as e:
                 print(e)
-                self.scene.mlab.clf()
-                self.scene.mlab.test_contour3d()
                 self.seismic_data = None
-                file_path = File()
-                self.show_group = False          
+                self.data_file_path = File()
+                self.show_group = False
+
+    def _open_label_file_fired(self):
+        self.label_file_path = fd.askopenfilename()
+        if self.label_file_path != '':
+            try:
+                self.seismic_label = np.load(self.label_file_path)
+            except Exception as e:
+                print(e)
+                self.seismic_label = None
+                self.data_label_path = File()
+                self.show_group = False   
+
+    def _show_button_fired(self):
+        self.scene.mlab.clf()
+        if self.seismic_data is not None:
+            self.scene.mlab.volume_slice(self.seismic_data, slice_index=0, plane_orientation='x_axes')
+            self.scene.mlab.volume_slice(self.seismic_data, slice_index=0, plane_orientation='y_axes')
+            self.scene.mlab.volume_slice(self.seismic_data, slice_index=0, plane_orientation='z_axes')
+            # self.scene.mlab.contour3d(self.seismic_data, contours=3, opacity=0.4)
+            self.scene.mlab.axes(xlabel='Inline', ylabel='Crossline', zlabel='Depth', nb_labels=5)
+            self.show_group = True
+            self.show_file = False
+            if self.seismic_label is not None:
+                self.scene.mlab.contour3d(self.seismic_label, contours=[3])
+            self.scene.render()
+            self.scene.mlab.view(azimuth=45, elevation=45, distance='auto')
+        else:
+            self.scene.mlab.clf()
+            self.scene.mlab.test_contour3d()  
 
     def _clearFile_fired(self):
         self.seismic_data = None
@@ -84,6 +117,7 @@ class SEGYAnalysis(HasTraits):
         self.scene.mlab.clf()
         self.scene.mlab.test_contour3d()
         self.show_group = False
+        self.show_file = True
 
     def _zoom_in_button_fired(self):
         self.scene.camera.zoom(1.3)
@@ -104,6 +138,10 @@ class SEGYAnalysis(HasTraits):
     def _animation_button_fired(self):
         animation_traits = Animation(self.seismic_data)
         animation_traits.configure_traits()
+
+    def _volume_slice_analysis_button_fired(self):
+        volume_slice_analysis_traits = VolumeSliceAnalysis(data=self.seismic_data)
+        volume_slice_analysis_traits.configure_traits()
 
 if __name__ == '__main__':
 
