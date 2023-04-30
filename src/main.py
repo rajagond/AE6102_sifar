@@ -18,14 +18,15 @@ class ProjectInformationDisplay(HasTraits):
 
     view = View(
         HSplit(
-        VGroup(
-            Item('course_name', style='readonly', label='Course Name'),
-            Item('name', style='readonly', label='Project Name'),
-        ),
-        VGroup(
-            Item('team_name', style='readonly', label='Team Name'),
-            Item('team_members', style='readonly', label='Team Members'),
-        ),
+            VGroup(
+                Item('course_name', style='readonly', label='Course Name'),
+                Item('name', style='readonly', label='Project Name'),
+            ),
+            VGroup(
+                Item('team_name', style='readonly', label='Team Name'),
+                Item('team_members', style='readonly', label='Team Members'),
+            ),
+            VGroup(),
         ),
         style = 'custom',
         title='Project Information',
@@ -72,13 +73,13 @@ class SEGYAnalysis(HasTraits):
             visible_when='show_group',
         ),
         VGroup(
-            HSplit(
-            Item('open_data_file', show_label=True, style='simple', label='Data File'),
-            Item('data_file_path', label='Selected file:', style='readonly'),
+            HGroup(
+                Item('open_data_file', show_label=True, style='simple', label='Data File'),
+                Item('data_file_path', label='Selected file:', style='readonly'),
             ),
-            HSplit(
-            Item('open_label_file', show_label=True, style='simple', label='Label File'),
-            Item('label_file_path', label='Selected file:', style='readonly'),
+            HGroup(
+                Item('open_label_file', show_label=True, style='simple', label='Label File'),
+                Item('label_file_path', label='Selected file:', style='readonly'),
             ),
             Item('show_button', show_label=False, style='simple', label='Show File'),
             visible_when='show_file',
