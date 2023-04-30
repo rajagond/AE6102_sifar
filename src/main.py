@@ -10,6 +10,7 @@ from numpy_analysis import *
 from animation import *
 from volume_slice_analysis import *
 from geophysical import *
+from render_3d import *
 
 class ProjectInformationDisplay(HasTraits):
     name = '3D Visualization and Analysis of Seismic Volumes'
@@ -60,6 +61,7 @@ class SEGYAnalysis(HasTraits):
     animation_button = Button(label='Planar Animations')
     volume_slice_analysis_button = Button(label='Volume Slice Analysis')
     geophysical_analysis_button = Button(label='Geophysical Analysis')
+    display_3d_button = Button(label='3D visualization')
 
     traits_view = View(
         Item('project', style='custom', show_label=False),
@@ -83,6 +85,7 @@ class SEGYAnalysis(HasTraits):
                 ),
                 HSplit(
                     Item('geophysical_analysis_button', show_label=False),
+                    Item('display_3d_button', show_label=False),
                 ),
             ),
             visible_when='show_group',
@@ -195,6 +198,10 @@ class SEGYAnalysis(HasTraits):
     def _geophysical_analysis_button_fired(self):
         geophysical_analysis_traits = GeoPhysicalAnalysis(data=self.seismic_data)
         geophysical_analysis_traits.configure_traits()
+
+    def _display_3d_button_fired(self):
+        display_3d_traits = Display3D(self.seismic_data)
+        display_3d_traits.configure_traits()
 
 if __name__ == '__main__':
 
