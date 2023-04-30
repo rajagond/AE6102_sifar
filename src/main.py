@@ -9,6 +9,7 @@ from analysis import *
 from numpy_analysis import *
 from animation import *
 from volume_slice_analysis import *
+from render_3d import *
 
 class ProjectInformationDisplay(HasTraits):
     name = '3D Visualization and Analysis of Seismic Volumes'
@@ -57,6 +58,7 @@ class SEGYAnalysis(HasTraits):
     numpy_analysis_button = Button(label='Numpy Analysis...')
     animation_button = Button(label='Animation...')
     volume_slice_analysis_button = Button(label='Volume Slice Analysis')
+    display_3d_button = Button(label='3D visualization')
 
     traits_view = View(
         Item('project', style='custom', show_label=False),
@@ -69,6 +71,7 @@ class SEGYAnalysis(HasTraits):
             Item('analysis_button', show_label=False),
             Item('numpy_analysis_button', show_label=False),
             Item('animation_button', show_label=False),
+            Item('display_3d_button', show_label=False),
             visible_when='show_group',
         ),
         VGroup(
@@ -143,9 +146,7 @@ class SEGYAnalysis(HasTraits):
 
     def _clearFile_fired(self):
         self.seismic_data = None
-        self.seismic_label = None
-        self.data_file_path = ''
-        self.data_label_path = ''
+        self.file_path = ''
         self.scene.mlab.clf()
         self.scene.mlab.test_contour3d()
         self.show_group = False
@@ -174,6 +175,10 @@ class SEGYAnalysis(HasTraits):
     def _volume_slice_analysis_button_fired(self):
         volume_slice_analysis_traits = VolumeSliceAnalysis(data=self.seismic_data)
         volume_slice_analysis_traits.configure_traits()
+
+    def _display_3d_button_fired(self):
+        display_3d_traits = Display3D(self.seismic_data)
+        display_3d_traits.configure_traits()
 
 if __name__ == '__main__':
 
