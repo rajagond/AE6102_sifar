@@ -9,6 +9,7 @@ from analysis import *
 from numpy_analysis import *
 from animation import *
 from volume_slice_analysis import *
+from geophysical import *
 
 class ProjectInformationDisplay(HasTraits):
     name = '3D Visualization and Analysis of Seismic Volumes'
@@ -58,18 +59,32 @@ class SEGYAnalysis(HasTraits):
     numpy_analysis_button = Button(label='Raw Data')
     animation_button = Button(label='Planar Animations')
     volume_slice_analysis_button = Button(label='Volume Slice Analysis')
+    geophysical_analysis_button = Button(label='Geophysical Analysis')
 
     traits_view = View(
         Item('project', style='custom', show_label=False),
         Item('scene', editor=SceneEditor(scene_class=MayaviScene),
              height=600, width=800, show_label=False),
-        HGroup(
-            Item('zoom_in_button', show_label=False),
-            Item('zoom_out_button', show_label=False),
-            Item('volume_slice_analysis_button', show_label=False),
-            Item('analysis_button', show_label=False),
-            Item('numpy_analysis_button', show_label=False),
-            Item('animation_button', show_label=False),
+        VGroup(
+            HGroup(
+                HSplit(
+                    Item('zoom_in_button', show_label=False),
+                    Item('zoom_out_button', show_label=False),
+                ),
+                HSplit(
+                    Item('animation_button', show_label=False),
+                    Item('volume_slice_analysis_button', show_label=False),
+                ),
+            ),
+            HGroup(
+                HSplit(
+                    Item('analysis_button', show_label=False),
+                    Item('numpy_analysis_button', show_label=False),
+                ),
+                HSplit(
+                    Item('geophysical_analysis_button', show_label=False),
+                ),
+            ),
             visible_when='show_group',
         ),
         VGroup(
@@ -176,6 +191,10 @@ class SEGYAnalysis(HasTraits):
     def _volume_slice_analysis_button_fired(self):
         volume_slice_analysis_traits = VolumeSliceAnalysis(data=self.seismic_data)
         volume_slice_analysis_traits.configure_traits()
+
+    def _geophysical_analysis_button_fired(self):
+        geophysical_analysis_traits = GeoPhysicalAnalysis(data=self.seismic_data)
+        geophysical_analysis_traits.configure_traits()
 
 if __name__ == '__main__':
 
