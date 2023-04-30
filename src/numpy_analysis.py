@@ -1,8 +1,11 @@
-from traits.api import HasTraits, Button, String, Instance
+from traits.api import HasTraits, Button, String, Instance, Bool
 from traitsui.api import View, Item, HGroup
+import numpy as np
+from os import makedirs
 
 class Display(HasTraits):
     string = String()
+    export_data = Instance(np.ndarray)
     view = View(Item('string', show_label=False, springy=True, style='custom'))
 
 class analyser(HasTraits):
@@ -15,26 +18,31 @@ class analyser(HasTraits):
     crossline_button = Button('Print Data')
     depth_button = Button('Print Data')
     result = Instance(Display)
+    export = Button('Export Data')
+    export_visible = Bool(False)
 
     view = View(
         HGroup(
-            Item('coordinates', label='Comma Separated Indices:', style='custom'),
+            Item('coordinates', label='Comma Separated Indices:', style='text'),
             Item('coordinates_button', show_label=False, style='custom'),
             label='Coordinates'
         ),
         HGroup(
-            Item('inline_slice_number', label='Inline slice number:', style='custom'),
+            Item('inline_slice_number', label='Inline slice number:', style='text'),
             Item('inline_button', show_label=False, style='custom'),
+            Item('export', show_label=False, style='custom', visible_when='export_visible'),
             label='Inline (X-Axis)'
         ),
         HGroup(
-            Item('crossline_slice_number', label='Crossline slice number:', style='custom'),
+            Item('crossline_slice_number', label='Crossline slice number:', style='text'),
             Item('crossline_button', show_label=False, style='custom'),
+            Item('export', show_label=False, style='custom', visible_when='export_visible'),
             label='Crossline (Y-Axis)'
         ),
         HGroup(
-            Item('depth_slice_number', label='Depth slice number:', style='custom'),
+            Item('depth_slice_number', label='Depth slice number:', style='text'),
             Item('depth_button', show_label=False, style='custom'),
+            Item('export', show_label=False, style='custom', visible_when='export_visible'),
             label='Depth (Z-Axis)'
         ),
     )
@@ -43,48 +51,64 @@ class analyser(HasTraits):
         HasTraits.__init__(self)
         self.seismic_data = data
         self.result = display
+        self.export_name = ''
 
     def _coordinates_button_fired(self):
-        x,y,z = self.coordinates.split(',')
-        if int(x) > self.seismic_data.shape[0] or int(x) < 0:
-            print("Invalid X Coordinate")
-            return
-        if int(y) > self.seismic_data.shape[1] or int(y) < 0:
-            print("Invalid Y Coordinate")
-            return
-        if int(z) > self.seismic_data.shape[2] or int(z) < 0:
-            print("Invalid Z Coordinate")
-            return
-        self.coordinates = ''
-        self.result.string = str(self.seismic_data[int(x), int(y), int(z)])
+        try:
+            x,y,z = self.coordinates.split(',')
+            self.coordinates = ''
+            self.result.string = str(self.seismic_data[int(x), int(y), int(z)])
+        except:
+            self.result.string = str("Invalid Coordinates")
+            self.coordinates = ''
 
     def _inline_button_fired(self):
-        if self.inline_slice_number == '' or int(self.inline_slice_number) > self.seismic_data.shape[2] or int(self.inline_slice_number) < 0:
-            print("Invalid Slice Number")
+        try:    
+            inline_slice = self.seismic_data[int(self.inline_slice_number), :, :]
+            self.export_name = '../exports/inline_slice_' + str(self.inline_slice_number) + '.csv'
             self.inline_slice_number = ''
-            return
-        inline_slice = self.seismic_data[int(self.inline_slice_number), :, :]
-        self.inline_slice_number = ''
-        self.result.string = str(inline_slice)
+            self.result.string = str(inline_slice)
+            self.result.export_data = inline_slice
+            self.export_visible = True
+        except:
+            self.result.string = str("Invalid Inline Slice Number")
+            self.inline_slice_number = ''
 
     def _crossline_button_fired(self):
-        if self.crossline_slice_number == '' or int(self.crossline_slice_number) > self.seismic_data.shape[1] or int(self.crossline_slice_number) < 0:
-            print("Invalid Slice Number")
+        try:
+            crossline_slice = self.seismic_data[:, int(self.crossline_slice_number), :]
+            self.export_name = '../exports/crossline_slice_' + str(self.crossline_slice_number) + '.csv'
             self.crossline_slice_number = ''
-            return
-        crossline_slice = self.seismic_data[:, int(self.crossline_slice_number), :]
-        self.crossline_slice_number = ''
-        self.result.string = str(crossline_slice)
+            self.result.string = str(crossline_slice)
+            self.result.export_data = crossline_slice
+            self.export_visible = True
+        except:
+            self.result.string = str("Invalid Crossline Slice Number")
+            self.crossline_slice_number = ''
 
     def _depth_button_fired(self):
-        if self.depth_slice_number == '' or int(self.depth_slice_number) > self.seismic_data.shape[0] or int(self.depth_slice_number) < 0:
-            print("Invalid Slice Number")
+        try:
+            depth_slice = self.seismic_data[:, :, int(self.depth_slice_number)]
+            self.export_name = '../exports/depth_slice_' + str(self.depth_slice_number) + '.csv'
             self.depth_slice_number = ''
-            return
-        depth_slice = self.seismic_data[:, :, int(self.depth_slice_number)]
-        self.depth_slice_number = ''
-        self.result.string = str(depth_slice)
+            self.result.string = str(depth_slice)
+            self.result.export_data = depth_slice
+            self.export_visible = True
+        except:
+            self.result.string = str("Invalid Depth Slice Number")
+            self.depth_slice_number = ''
 
+    def _export_fired(self):
+        try:
+            makedirs('../exports', exist_ok=True)
+            np.savetxt(self.export_name, self.result.export_data, delimiter=',')
+            self.result.string = str("Export Successful")
+        except:
+            self.result.string = str("Export Failed")
+
+        self.export_visible = False
+        self.export_name = ''
+        self.result.export_data = None
 
 class NumpyAnalysis(HasTraits):
     display = Instance(Display, ())
@@ -106,7 +130,8 @@ class NumpyAnalysis(HasTraits):
             label='Result',
             show_label=True
         ),
-        title='Numpy Analysis',
+        title='Raw Data Analysis',
         resizable=True,
         buttons=['Cancel'],
+        width=600,
     )
