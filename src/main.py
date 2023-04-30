@@ -143,7 +143,9 @@ class SEGYAnalysis(HasTraits):
 
     def _clearFile_fired(self):
         self.seismic_data = None
-        self.file_path = ''
+        self.seismic_label = None
+        self.data_file_path = ''
+        self.data_label_path = ''
         self.scene.mlab.clf()
         self.scene.mlab.test_contour3d()
         self.show_group = False
