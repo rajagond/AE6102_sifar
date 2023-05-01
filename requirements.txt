@@ -12,3 +12,5 @@ Sphinx>=5,<6
 sphinx_rtd_theme
 imageio==2.28.0
 imageio-ffmpeg==0.4.8
+wxPython
+bruges==0.5.4
