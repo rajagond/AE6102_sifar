@@ -2,7 +2,7 @@ import numpy as np
 from tkinter import filedialog as fd
 from tkinter import Tk
 from traits.api import HasTraits, Button, File, Instance, on_trait_change, Bool
-from traitsui.api import View, Item, HGroup, VGroup, HSplit
+from traitsui.api import View, Item, HGroup, VGroup, HSplit, HFlow
 from mayavi.core.ui.api import MlabSceneModel, SceneEditor, MayaviScene
 from mayavi.tools.mlab_scene_model import MlabSceneModel
 from analysis import *
@@ -69,24 +69,16 @@ class SEGYAnalysis(HasTraits):
              height=600, width=800, show_label=False),
         VGroup(
             HGroup(
-                HSplit(
-                    Item('zoom_in_button', show_label=False),
-                    Item('zoom_out_button', show_label=False),
-                ),
-                HSplit(
-                    Item('animation_button', show_label=False),
-                    Item('volume_slice_analysis_button', show_label=False),
-                ),
+                Item('zoom_in_button', show_label=False),
+                Item('zoom_out_button', show_label=False),     
+                Item('animation_button', show_label=False),
+                Item('volume_slice_analysis_button', show_label=False),
             ),
             HGroup(
-                HSplit(
-                    Item('analysis_button', show_label=False),
-                    Item('numpy_analysis_button', show_label=False),
-                ),
-                HSplit(
-                    Item('geophysical_analysis_button', show_label=False),
-                    Item('display_3d_button', show_label=False),
-                ),
+                Item('analysis_button', show_label=False),
+                Item('numpy_analysis_button', show_label=False),
+                Item('geophysical_analysis_button', show_label=False),
+                Item('display_3d_button', show_label=False),
             ),
             visible_when='show_group',
         ),
