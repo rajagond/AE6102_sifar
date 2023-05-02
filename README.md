@@ -40,6 +40,7 @@ The project will involve the following steps:
 | 4    | [Project Update-01](docs/project_update1.pdf)                    | 20/03/2023 09:00 IST |
 | 5    | [Project Update-02](docs/project_update2.pdf)                    | 03/04/2023 09:00 IST |
 | 6    | [Project Update-03](docs/project_update3.pdf)                    | 14/04/2023 23:59 IST |
+| 7    | [Final Report Submission](docs/project_report.pdf)                    | 03/05/2023 09:00 IST |
 
 ##### Datasets
 
