@@ -11,6 +11,7 @@ from animation import *
 from volume_slice_analysis import *
 from geophysical import *
 from render_3d import *
+import os 
 
 class ProjectInformationDisplay(HasTraits):
     name = '3D Visualization and Analysis of Seismic Volumes'
@@ -44,6 +45,9 @@ class SEGYAnalysis(HasTraits):
     label_file_path = File()
     show_button = Button(label='Show and Analyse')
     clearFile = Button(label='Clear file')
+
+    convert = Button(label='Convert to .npy')
+    file_convert = File()
 
     # Project Information
     project = Instance(ProjectInformationDisplay, ())
@@ -95,6 +99,7 @@ class SEGYAnalysis(HasTraits):
             visible_when='show_file',
         ),
         Item('clearFile', show_label=False, style='custom', label='Clear File'),
+        Item('convert', show_label=False, style='custom', label='Convert File to .npy'),
         title='Seismic Data Visualization and Analysis',
         resizable=True,
         buttons=['Cancel'],
@@ -135,6 +140,15 @@ class SEGYAnalysis(HasTraits):
                 self.seismic_label = None
                 self.label_file_path = 'None'
                 self.show_group = False   
+
+    def _convert_fired(self):
+        self.file_convert = fd.askopenfilename()
+        if self.file_convert != '':
+            try:
+                os.system('python ../data-process/data_to_numpy.py --data ' + self.file_convert + ' --output ' + self.file_convert[:-4] + '.npy' + ' --silent')
+            except Exception as e:
+                print(e)
+                self.file_convert = 'None'
 
     def _show_button_fired(self):
         self.scene.mlab.clf()
