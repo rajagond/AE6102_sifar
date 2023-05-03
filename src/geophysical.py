@@ -53,23 +53,23 @@ class GeoPhysicalAnalysis(HasTraits):
             ),
             label='Instantaneous Phase'
         ),
-        HGroup(
-            VGroup(
-                HGroup(
-                    Item('x_axis', label='X-Axis:'),
-                    Item('frequency_button_x', show_label=False),
-                ),
-                HGroup(
-                    Item('y_axis', label='Y-Axis:'),
-                    Item('frequency_button_y', show_label=False),
-                ),
-                HGroup(
-                    Item('z_axis', label='Z-Axis:'),
-                    Item('frequency_button_z', show_label=False),
-                ),
-            ),
-            label='Instantaneous Frequency'
-        ),
+        # HGroup(
+        #     VGroup(
+        #         HGroup(
+        #             Item('x_axis', label='X-Axis:'),
+        #             Item('frequency_button_x', show_label=False),
+        #         ),
+        #         HGroup(
+        #             Item('y_axis', label='Y-Axis:'),
+        #             Item('frequency_button_y', show_label=False),
+        #         ),
+        #         HGroup(
+        #             Item('z_axis', label='Z-Axis:'),
+        #             Item('frequency_button_z', show_label=False),
+        #         ),
+        #     ),
+        #     label='Instantaneous Frequency'
+        # ),
         title='Geophysical Analysis',
         resizable=True,
         width=600,
