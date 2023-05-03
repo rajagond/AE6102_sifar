@@ -58,7 +58,7 @@ def segy_to_numpy(data_path, output_path):
 
         # The NumPy array 'data' now contains the trace data from the SEG-Y file
         # Save the NumPy array to a binary file
-        np.savez(output_path, data)
+        np.save(output_path, data)
 
 
 if __name__ == '__main__':
